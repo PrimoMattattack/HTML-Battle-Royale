@@ -1,0 +1,174 @@
+<style>
+
+body{
+	background-image: url("https://images-na.ssl-images-amazon.com/images/I/41AiiAR%2B0tL._SL500_AC_SS350_.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.info{
+	padding-bottom:20px;
+	background: solid;
+	background-color: #DCF2FD;
+	background-size:auto;
+	border:solid;
+	border-width: thin;
+	text-align: center;
+}
+
+.info2{
+	margin:4%;
+	padding:5px;
+	background-color: #E8F3F9;
+	border:solid;
+	border-width:thin;
+}
+
+html *{
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.infoClass{
+	margin-left:8%;
+	margin-right:8%;
+}
+
+.centeredCanvas{
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin:auto;
+	margin-bottom: 20px;
+	border-radius: 20px
+}
+
+hr{
+	border-color: black;
+}
+
+@media only screen and (max-width: 400px) {
+  .infoClass{
+			margin-right: 2%;
+			margin-left: 2%;
+		}
+}
+
+</style>
+
+<html>
+	<head>
+		<div class = "infoClass">
+		<div class="info">
+			<h1> Registration </h1>
+				<hr style="color:black">
+			</svg>
+				<div class="info2">
+					<p> Please complete the forms so your application for the Slidell Police Force
+						can be considered
+			<form>
+				Email:
+				<input type="email" name="Email" required> <br> <br>
+				SSN :
+				<input type="text" name="Social Security Number" required> <br><br>
+				<button type="submit">Submit</button>
+			</form> <br>
+		</div>
+		</div>
+		</div>
+	</head>
+
+	<br>
+
+	<body>
+		<canvas class = "centeredCanvas" id="gameCanvas" width="500" height="500"
+		style="border:1px solid #000000;">
+		</canvas>
+		<img id="image" width="300" height="300" src="http://i.imgur.com/LDR6AWn.png?1">
+<canvas id="myCanvas" width="300" height="300" >
+	</body>
+
+</html>
+
+<script>
+
+var canvasHeight = 500;
+var canvasWidth = 500;
+
+var xVelocity = Math.random() * 10;
+var yVelocity = Math.random() * 10;
+
+class Player
+{
+		constructor(x, y, width, height)
+		{
+			this.x = x;
+			this.y = y;
+			this.width = width;
+			this.height = height;
+			this.xVelocity = xVelocity;
+			this.yVelocity = yVelocity;
+		}
+
+}
+
+var player, player2, player3;
+var ctx;
+
+function initializeData ()
+{
+	player = new Player(1, 1, 32, 32);
+	player2 = new Player(468, 468, 32, 32);
+	player3 = new Player(250, 250, 32, 32);
+}
+
+function drawPlayer ()
+{
+	ctx.fillStyle = "#008080";
+	ctx.fillRect(0,0,canvasHeight,canvasWidth);
+	ctx.fillStyle = "#008000";
+	ctx.fillRect(player.x, player.y, player.width, player.height);
+	ctx.fillStyle = "#0000FF";
+	ctx.fillRect(player2.x, player2.y, player2.width, player2.height);
+	ctx.fillStyle = "#FF0000";
+	ctx.fillRect(player3.x, player3.y, player3.width, player3.height);
+	ctx.fillStyle = "yellow";
+	ctx.font = "30px Arial";
+	ctx.fillText("Live Action Police Map!",0,32);
+}
+
+function movePlayer(player)
+{
+	if (player.x >= 468 || player.x <= 0)
+	{
+		player.xVelocity = player.xVelocity * -1;
+	}
+	if (player.y >= 468 || player.y <= 0)
+	{
+		player.yVelocity = player.yVelocity * -1;
+	}
+	player.x += player.xVelocity;
+	player.y += player.yVelocity;
+}
+
+function gameManager()
+{
+	drawPlayer();
+	movePlayer(player);
+	movePlayer(player2);
+	movePlayer(player3);
+}
+
+	window.onload = function()
+	{
+		initializeData();
+
+		var c = document.getElementById("gameCanvas");
+		ctx = c.getContext("2d");
+
+		var framesPerSecond = 60;
+		setInterval (function () {gameManager()}, 1000/framesPerSecond);
+	}
+
+
+</script>
